@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Battle.net Profile</string>
+    <string name="battle_net_key">586d7ac6m8992buzyyjxggk6b3fud33m</string>
+    <string name="battle_net_secret">zT4fDaTvcXTHr4HnV3eS5Ye8u8GgYy3X</string>
+    <string name="activity_main_career_total_games_label">Career total games:</string>
+    <string name="activity_main_primary_race_label">Primary race:</string>
+    <string name="activity_main_career_summary_label">Career Summary</string>
+    <string name="android_main_go_to_bnet_button">Go to Battle.net</string>
+    <string name="view_loading_retry_label">Retry</string>
+</resources>

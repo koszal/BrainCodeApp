@@ -10,7 +10,6 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import braincode.app.R;
-import braincode.app.data.model.Profile;
 import braincode.app.ui.BaseActivity;
 import braincode.app.ui.views.LoadingView;
 import butterknife.Bind;
@@ -58,28 +57,28 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         mainPresenter.detachView();
     }
 
-    @Override
-    public void showProfile(final Profile profile) {
-        displayName.setText(profile.getDisplayName());
-        String clanTagText = profile.getClanTag();
-        if (clanTagText != null) {
-            clanTag.setText(profile.getClanTag());
-            clanTag.setVisibility(View.VISIBLE);
-        } else {
-            clanTag.setVisibility(View.INVISIBLE);
-        }
-        clanName.setText(profile.getClanName());
-        goToBnetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, profile.getProfileUrl("en"));
-                startActivity(intent);
-            }
-        });
-        primaryRace.setText(profile.getCareer().getPrimaryRace());
-        careerTotalGames.setText(Integer.toString(profile.getCareer().getCareerTotalGames()));
-        loadingView.hide();
-    }
+//    @Override
+//    public void showProfile(final Profile profile) {
+////        displayName.setText(profile.getDisplayName());
+////        String clanTagText = profile.getClanTag();
+////        if (clanTagText != null) {
+////            clanTag.setText(profile.getClanTag());
+////            clanTag.setVisibility(View.VISIBLE);
+////        } else {
+////            clanTag.setVisibility(View.INVISIBLE);
+////        }
+////        clanName.setText(profile.getClanName());
+////        goToBnetButton.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View v) {
+////                Intent intent = new Intent(Intent.ACTION_VIEW, profile.getProfileUrl("en"));
+////                startActivity(intent);
+////            }
+////        });
+////        primaryRace.setText(profile.getCareer().getPrimaryRace());
+////        careerTotalGames.setText(Integer.toString(profile.getCareer().getCareerTotalGames()));
+////        loadingView.hide();
+//    }
 
     @Override
     public void showError(Throwable e) {

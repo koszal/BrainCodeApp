@@ -1,6 +1,5 @@
 package braincode.app.ui.main;
 
-import braincode.app.data.model.Profile;
 import braincode.app.ui.BaseMvpView;
 
 /**
@@ -8,7 +7,7 @@ import braincode.app.ui.BaseMvpView;
  */
 public interface MainMvpView extends BaseMvpView {
 
-    void showProfile(Profile profile);
+//    void showProfile(Profile profile);
 
     void showError(Throwable e);
 

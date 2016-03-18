@@ -16,10 +16,21 @@ public class PreferenceHelper {
 
     private static final String PREF_NAMESPACE = "PREFS";
 
+    private static final String PREF_TOKEN = "TOKEN";
+
     private final SharedPreferences prefs;
 
     @Inject
     public PreferenceHelper(@ApplicationContext Context context) {
         prefs = context.getSharedPreferences(PREF_NAMESPACE, Context.MODE_PRIVATE);
     }
+
+    public void saveToken(String token) {
+        prefs.edit().putString(PREF_TOKEN, token).apply();
+    }
+
+    public void removeToken() {
+        prefs.edit().remove(PREF_TOKEN).apply();
+    }
+
 }

@@ -19,5 +19,9 @@ public class DataManager {
         this.prefsHelper = prefsHelper;
     }
 
+    public void saveToken(String token) {
+        prefsHelper.saveToken(token);
+    }
+
 
 }

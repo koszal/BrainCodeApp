@@ -2,6 +2,7 @@ package braincode.app.injection.component;
 
 import braincode.app.injection.PerActivity;
 import braincode.app.injection.module.ActivityModule;
+import braincode.app.ui.checklist.ChecklistActivity;
 import braincode.app.ui.login.LoginActivity;
 import braincode.app.ui.main.MainActivity;
 import braincode.app.ui.register.RegisterActivity;
@@ -19,4 +20,7 @@ public interface ActivityComponent {
      void inject(LoginActivity loginActivity);
 
      void inject(RegisterActivity registerActivity);
+
+     void inject(ChecklistActivity checklistActivity);
+
 }

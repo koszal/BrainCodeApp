@@ -7,6 +7,7 @@ import braincode.app.ui.ez.StartActivity;
 import braincode.app.ui.login.LoginActivity;
 import braincode.app.ui.main.MainActivity;
 import braincode.app.ui.register.RegisterActivity;
+import braincode.app.ui.search.SearchActivity;
 import dagger.Component;
 
 /**
@@ -25,5 +26,7 @@ public interface ActivityComponent {
      void inject(ChecklistActivity checklistActivity);
 
      void inject(StartActivity startActivity);
+
+     void inject(SearchActivity searchActivity);
 
 }

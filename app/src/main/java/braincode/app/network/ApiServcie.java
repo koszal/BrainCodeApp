@@ -12,6 +12,8 @@ import braincode.app.network.response.ChecklistListResponse;
 import braincode.app.network.response.LoginResponse;
 import braincode.app.network.response.RegisterResponse;
 import braincode.app.network.response.UserResponse;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -21,7 +23,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -40,8 +41,8 @@ public interface ApiServcie {
     @GET("api/user/{name}")
     Observable<UserResponse> user(@Path("name") String username, @Header("AccessToken") String accessToken);
 
-    @GET("search/")
-    Observable<ChecklistListResponse> query(@Header("token") String token, @Query("query") String query);
+    @GET("api/checklist/tag/{tag}")
+    Observable<ChecklistListResponse> query(@Header("token") String token, @Path("tag") String query);
 
     @POST("put/")
     Observable<Response<JSONObject>> put(@Header("token") String token, @Body Checklist checklist);
@@ -49,10 +50,15 @@ public interface ApiServcie {
     class Creator {
         public static ApiServcie newApiService() {
             Gson gson = new GsonBuilder().create();
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .client(client)
                     .build();
             return retrofit.create(ApiServcie.class);
         }

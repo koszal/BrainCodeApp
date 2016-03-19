@@ -9,9 +9,9 @@ import braincode.app.data.model.Checklist;
  */
 public class ChecklistListResponse {
 
-    List<Checklist> items;
+    List<Checklist> results;
 
     public List<Checklist> getItems() {
-        return items;
+        return results;
     }
 }

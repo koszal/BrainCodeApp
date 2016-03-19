@@ -23,6 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.register.RegisterActivity" />
+        <activity android:name=".ui.checklist.ChecklistActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
     </application>
 
 

@@ -1,8 +1,11 @@
 package braincode.app.ui.main;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import braincode.app.data.DataManager;
+import braincode.app.data.model.Checklist;
 import braincode.app.ui.BasePresenter;
 import rx.subscriptions.CompositeSubscription;
 
@@ -54,4 +57,13 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
     }
 
 
+    public void loadChecklists() {
+        List<Checklist> checklists = dataManager.getChecklists();
+        getMvpView().showChecklists(checklists);
+    }
+
+    public void createChecklist(Checklist checklist) {
+        dataManager.addChecklist(checklist);
+        getMvpView().openChecklist(checklist);
+    }
 }

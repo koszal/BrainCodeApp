@@ -1,11 +1,15 @@
 package braincode.app.data;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import braincode.app.data.local.PreferenceHelper;
+import braincode.app.data.model.Checklist;
 import braincode.app.network.ApiServcie;
 import braincode.app.network.request.LoginRequest;
 import braincode.app.network.request.RegisterRequest;
+import braincode.app.network.response.ChecklistListResponse;
 import braincode.app.network.response.LoginResponse;
 import braincode.app.network.response.RegisterResponse;
 import braincode.app.network.response.UserResponse;
@@ -48,5 +52,15 @@ public class DataManager {
     }
 
 
+    public List<Checklist> getChecklists() {
+        return prefsHelper.getAllChecklists();
+    }
 
+    public void addChecklist(Checklist checklist) {
+        prefsHelper.addChecklist(checklist);
+    }
+
+    public Observable<ChecklistListResponse> query(String query) {
+        return apiServcie.query(prefsHelper.getToken(), query);
+    }
 }

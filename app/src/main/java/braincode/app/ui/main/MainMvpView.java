@@ -1,5 +1,8 @@
 package braincode.app.ui.main;
 
+import java.util.List;
+
+import braincode.app.data.model.Checklist;
 import braincode.app.ui.BaseMvpView;
 
 /**
@@ -13,4 +16,7 @@ public interface MainMvpView extends BaseMvpView {
 
     void showLoading();
 
+    void showChecklists(List<Checklist> checklists);
+
+    void openChecklist(Checklist checklist);
 }

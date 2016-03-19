@@ -21,4 +21,12 @@
         android:id="@+id/addChecklistButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <braincode.app.ui.views.LoadingView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loadingView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/addChecklistButton" />
 </RelativeLayout>

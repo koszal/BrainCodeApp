@@ -18,7 +18,7 @@ public class Checklist implements Parcelable {
         this.id = id;
     }
 
-    private String name;
+    private String title;
     private String description;
     private String author;
     private String[] tags;
@@ -26,7 +26,7 @@ public class Checklist implements Parcelable {
     private ChecklistStats stats;
 
     public String getName() {
-        return name;
+        return title;
     }
 
     public String getDescription() {
@@ -56,7 +56,7 @@ public class Checklist implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.name);
+        dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeString(this.author);
         dest.writeStringArray(this.tags);
@@ -68,7 +68,7 @@ public class Checklist implements Parcelable {
     }
 
     protected Checklist(Parcel in) {
-        this.name = in.readString();
+        this.title = in.readString();
         this.description = in.readString();
         this.author = in.readString();
         this.tags = in.createStringArray();
@@ -85,4 +85,25 @@ public class Checklist implements Parcelable {
             return new Checklist[size];
         }
     };
+
+    public void setName(String name) {
+        this.title = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
+
+    public void setItems(String[] items) {
+        this.items = items;
+    }
+
+    public int getSize() {
+        if (items == null) return 0;
+        return items.length;
+    }
 }

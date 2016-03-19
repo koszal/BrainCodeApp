@@ -14,11 +14,11 @@ import butterknife.ButterKnife;
 public class ChecklistViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.title)
-    TextView title;
+    public TextView title;
     @Bind(R.id.description)
-    TextView description;
+    public TextView description;
     @Bind(R.id.completion)
-    TextView completion;
+    public TextView completion;
 
     public ChecklistViewHolder(View itemView) {
         super(itemView);

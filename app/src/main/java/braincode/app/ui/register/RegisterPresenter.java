@@ -3,7 +3,14 @@ package braincode.app.ui.register;
 import javax.inject.Inject;
 
 import braincode.app.data.DataManager;
+import braincode.app.network.request.RegisterRequest;
+import braincode.app.network.response.RegisterResponse;
 import braincode.app.ui.BasePresenter;
+import retrofit2.Response;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -35,7 +42,26 @@ public class RegisterPresenter extends BasePresenter<RegisterMvpView> {
     }
 
     public void register(String email, String username, String password) {
+        Subscription s = dataManager.register(new RegisterRequest(username, password, email))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Response<RegisterResponse>>() {
+                    @Override
+                    public void onCompleted() {
 
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        getMvpView().onError(e);
+                    }
+
+                    @Override
+                    public void onNext(Response<RegisterResponse> registerResponse) {
+                        getMvpView().onRegistered();
+                    }
+                });
+        subscription.add(s);
     }
 
 }

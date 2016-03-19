@@ -5,7 +5,7 @@ package braincode.app.network.request;
  */
 public class RegisterRequest {
 
-    private String username;
+    private String login;
     private String password;
     private String email;
 
@@ -13,17 +13,17 @@ public class RegisterRequest {
     }
 
     public RegisterRequest(String username, String password, String email) {
-        this.username = username;
+        this.login = username;
         this.password = password;
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {

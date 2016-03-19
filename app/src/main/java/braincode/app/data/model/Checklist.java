@@ -3,18 +3,26 @@ package braincode.app.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 /**
  * Created by koszal on 18/03/16.
  */
 public class Checklist implements Parcelable {
 
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     private String name;
     private String description;
     private String author;
-    private String tags;
-    private List<ChecklistElement> elements;
+    private String[] tags;
+    private String[] items;
     private ChecklistStats stats;
 
     public String getName() {
@@ -29,18 +37,17 @@ public class Checklist implements Parcelable {
         return author;
     }
 
-    public String getTags() {
+    public String[] getTags() {
         return tags;
     }
 
-    public List<ChecklistElement> getElements() {
-        return elements;
+    public String[] getItems() {
+        return items;
     }
 
     public ChecklistStats getStats() {
         return stats;
     }
-
 
     @Override
     public int describeContents() {
@@ -52,8 +59,8 @@ public class Checklist implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.description);
         dest.writeString(this.author);
-        dest.writeString(this.tags);
-        dest.writeTypedList(elements);
+        dest.writeStringArray(this.tags);
+        dest.writeStringArray(this.items);
         dest.writeParcelable(this.stats, 0);
     }
 
@@ -64,8 +71,8 @@ public class Checklist implements Parcelable {
         this.name = in.readString();
         this.description = in.readString();
         this.author = in.readString();
-        this.tags = in.readString();
-        this.elements = in.createTypedArrayList(ChecklistElement.CREATOR);
+        this.tags = in.createStringArray();
+        this.items = in.createStringArray();
         this.stats = in.readParcelable(ChecklistStats.class.getClassLoader());
     }
 

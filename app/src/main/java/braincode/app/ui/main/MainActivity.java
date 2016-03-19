@@ -3,36 +3,34 @@ package braincode.app.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import braincode.app.R;
+import braincode.app.data.model.Checklist;
 import braincode.app.ui.BaseActivity;
-import braincode.app.ui.views.LoadingView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
-    @Inject MainPresenter mainPresenter;
+    @Bind(R.id.addChecklistButton)
+    Button addChecklistButton;
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
 
-    @Bind(R.id.displayName)
-    TextView displayName;
-    @Bind(R.id.clanTag)
-    TextView clanTag;
-    @Bind(R.id.clanName)
-    TextView clanName;
-    @Bind(R.id.goToBnetButton)
-    Button goToBnetButton;
-    @Bind(R.id.primaryRace)
-    TextView primaryRace;
-    @Bind(R.id.careerTotalGames)
-    TextView careerTotalGames;
-    @Bind(R.id.loadingView)
-    LoadingView loadingView;
+    private ChecklistsAdapter checklistsAdapter;
+
+    @Inject MainPresenter mainPresenter;
 
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
@@ -47,6 +45,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         getActivityComponent().inject(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        checklistsAdapter = new ChecklistsAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(checklistsAdapter);
+
         mainPresenter.attachView(this);
         mainPresenter.loadProfile();
     }
@@ -57,40 +60,45 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         mainPresenter.detachView();
     }
 
-//    @Override
-//    public void showProfile(final Profile profile) {
-////        displayName.setText(profile.getDisplayName());
-////        String clanTagText = profile.getClanTag();
-////        if (clanTagText != null) {
-////            clanTag.setText(profile.getClanTag());
-////            clanTag.setVisibility(View.VISIBLE);
-////        } else {
-////            clanTag.setVisibility(View.INVISIBLE);
-////        }
-////        clanName.setText(profile.getClanName());
-////        goToBnetButton.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////                Intent intent = new Intent(Intent.ACTION_VIEW, profile.getProfileUrl("en"));
-////                startActivity(intent);
-////            }
-////        });
-////        primaryRace.setText(profile.getCareer().getPrimaryRace());
-////        careerTotalGames.setText(Integer.toString(profile.getCareer().getCareerTotalGames()));
-////        loadingView.hide();
-//    }
-
     @Override
     public void showError(Throwable e) {
-        loadingView.show().withButton(e.getLocalizedMessage(), getString(R.string.view_loading_retry_label), retryListener);
     }
 
     @Override
     public void showLoading() {
-        loadingView.show().withProgressBar();
     }
 
-    public static Intent getStartIntent(Context targetContext, boolean b) {
+    public static Intent getStartIntent(Context targetContext) {
         return new Intent(targetContext, MainActivity.class);
     }
+
+    class ChecklistsAdapter extends RecyclerView.Adapter<ChecklistViewHolder> {
+
+        private List<Checklist> items = new ArrayList<>();
+
+        public void setChecklists(List<Checklist> checklists) {
+            items.clear();
+            items.addAll(checklists);
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public ChecklistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.view_checklist_list_item, parent, false);
+            return new ChecklistViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(ChecklistViewHolder holder, int position) {
+            Checklist checklist = items.get(position);
+            holder.title.setText(checklist.getName());
+            holder.description.setText(checklist.getDescription());
+        }
+
+        @Override
+        public int getItemCount() {
+            return items.size();
+        }
+    }
+
 }

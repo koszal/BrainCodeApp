@@ -1,12 +1,16 @@
 package braincode.app.ui.login;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import braincode.app.R;
 import braincode.app.ui.BaseActivity;
+import braincode.app.ui.main.MainActivity;
 import braincode.app.ui.register.RegisterActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,7 +21,7 @@ import butterknife.OnClick;
  */
 public class LoginActivity extends BaseActivity implements LoginMvpView {
 
-    @Bind(R.id.username)
+    @Bind(R.id.login)
     EditText username;
     @Bind(R.id.password)
     EditText password;
@@ -50,6 +54,21 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @OnClick(R.id.registerButton)
     public void onRegisterClicked() {
         startActivity(RegisterActivity.getStartIntent(this));
+    }
+
+    public static Intent getStartIntent(Context context) {
+        return new Intent(context, LoginActivity.class);
+    }
+
+    @Override
+    public void onLoggedIn() {
+        startActivity(MainActivity.getStartIntent(this));
+        finish();
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
 }

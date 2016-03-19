@@ -11,6 +11,7 @@ import braincode.app.network.request.RegisterRequest;
 import braincode.app.network.response.ChecklistListResponse;
 import braincode.app.network.response.LoginResponse;
 import braincode.app.network.response.RegisterResponse;
+import braincode.app.network.response.UserResponse;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -19,6 +20,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -27,13 +29,16 @@ import rx.Observable;
  */
 public interface ApiServcie {
 
-    String ENDPOINT = "https://eu.api.battle.net/sc2/";
+    String ENDPOINT = "http://54.93.79.160/socheck/";
 
-    @POST("login/")
+    @POST("api/auth/")
     Observable<LoginResponse> login(@Body LoginRequest body);
 
-    @POST("register/")
-    Observable<RegisterResponse> register(@Body RegisterRequest body);
+    @POST("api/user/")
+    Observable<Response<RegisterResponse>> register(@Body RegisterRequest body);
+
+    @GET("api/user/{name}")
+    Observable<UserResponse> user(@Path("name") String username, @Header("AccessToken") String accessToken);
 
     @GET("search/")
     Observable<ChecklistListResponse> query(@Header("token") String token, @Query("query") String query);

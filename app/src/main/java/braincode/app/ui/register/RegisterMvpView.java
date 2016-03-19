@@ -6,4 +6,7 @@ import braincode.app.ui.BaseMvpView;
  * Created by koszal on 18/03/16.
  */
 public interface RegisterMvpView extends BaseMvpView {
+    void onRegistered();
+
+    void onError(Throwable e);
 }
